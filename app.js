@@ -2,6 +2,12 @@ const express = require("express");
 const app = express();
 const logger = require("morgan");
 var cors = require("cors");
+const cookieParser = require("cookie-parser");
+const userRouter = require("./routes/user");
+
+app.use(cookieParser());
+app.use(express.json());
+
 app.use(cors({
   credentials:true,
   origin:'http://localhost:3000',
@@ -9,9 +15,12 @@ app.use(cors({
 }));
 require("dotenv").config();
 
-app.use(express.json());
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
+
+
+app.use("/api/users", userRouter);
 
 app.all("*", (_, res) => {
     res.status(404).json({
