@@ -1,10 +1,11 @@
 const HttpError = require("../errors/errorHandler");
 
-const { getAllGames,create, getById, update } = require("../services/gameService");
+const { getAllGames,create, getById, update, deleteGame } = require("../services/gameService");
 
 
 const createGame = async (req, res, next) => {
     try {
+        console.log(req.user)
         const {id} = req.user;
         const newGame = await create({...req.body},id);
         return res.status(200).json(newGame);
@@ -56,3 +57,6 @@ const deleteOneGame = async (req, res, next) => {
         console.log("DELETE GAME CONTROLLER", error.message);
     }
 }
+
+
+module.exports = {createGame,deleteOneGame,updateGame,getGameById,getAll};

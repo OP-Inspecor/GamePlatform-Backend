@@ -4,7 +4,7 @@ const logger = require("morgan");
 var cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/user");
-
+const gameRouter = require("./routes/game");
 app.use(cookieParser());
 app.use(express.json());
 
@@ -21,6 +21,7 @@ app.use(logger(formatsLogger));
 
 
 app.use("/api/users", userRouter);
+app.use("/games", gameRouter);
 
 app.all("*", (_, res) => {
     res.status(404).json({
