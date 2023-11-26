@@ -21,9 +21,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    created_games: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Game" }],
-    },
+    // created_games: {
+    //   type: [{ type: Schema.Types.ObjectId, ref: "Game" }],
+    // },
     history_games: {
         type: [{ type: Schema.Types.ObjectId, ref: "Game" }],
     }

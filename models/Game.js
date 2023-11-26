@@ -15,18 +15,26 @@ const gameSchema = new Schema({
     },
     path:{
         type: String,
-        required:true
+        //required:true
     },
     rating:{
         type:Number,
+        default:0,
     },
-    history_players:{
-        type:[{ type: Schema.Types.ObjectId,
-            ref: 'User' }],
-    }
+    creator:{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    },
+    likes:{
+        type:Number,
+        default:0,
+    },
+    // history_players:{
+    //     type:[{ type: Schema.Types.ObjectId,
+    //         ref: 'User' }],
+    // }
 },{ versionKey: false, timestamps: true });
 
 const Game = model("Game", gameSchema);
 module.exports = Game;
 
-//coments TODO 
