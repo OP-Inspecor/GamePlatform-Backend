@@ -6,7 +6,7 @@ const { createGame,getAllAdmin,getGames, updateGame, deleteOneGame, getGameById,
 
 router.get('/admin',auth, getAllAdmin);
 
-router.get('/mygames',auth, getMyGames)
+router.get('/my',auth, getMyGames)
 
 router.get('/', getGames);
 
