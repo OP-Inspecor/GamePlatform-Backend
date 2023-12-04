@@ -58,6 +58,11 @@ const logut = async (refreshToken) => {
   return token;
 };
 
+const getMe = async (id) => {
+  const person = await User.findById(id);
+  return person || null;
+}
+
 const refresh = async (refreshToken) => {
 
   if (!refreshToken) {
@@ -80,4 +85,4 @@ const refresh = async (refreshToken) => {
 
 
 
-module.exports = { register, login, logut, refresh };
+module.exports = { register, login, logut, refresh, getMe };

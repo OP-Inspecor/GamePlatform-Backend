@@ -6,7 +6,8 @@ const {
   getById,
   update,
   deleteGame,
-  getAllGames
+  getAllGames,
+  getCreatorGames
 } = require("../services/gameService");
 
 const createGame = async (req, res, next) => {
@@ -78,11 +79,23 @@ const deleteOneGame = async (req, res, next) => {
   }
 };
 
+const getMyGames = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const result = await getCreatorGames(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    next(HttpError(500, error.message));
+    console.log("GET_CREATOR_GAME_CONTROLLER -->", error.message);
+  }
+}
+
 module.exports = {
   createGame,
   deleteOneGame,
   updateGame,
   getGameById,
   getAllAdmin,
-  getGames
+  getGames,
+  getMyGames
 };
