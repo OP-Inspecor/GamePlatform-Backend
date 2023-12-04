@@ -9,6 +9,8 @@ const {
   deleteOneGame,
   getGameById,
   getMyGames,
+  approveGame,
+  rejectGame,
 } = require("../controller/gameController");
 
 router.get("/admin", auth, getAllAdmin);
@@ -22,6 +24,10 @@ router.get("/:id", getGameById);
 router.post("/", auth, createGame);
 
 router.patch("/:id", auth, updateGame);
+
+router.patch('/:id/approve',auth, approveGame);
+
+router.patch('/:id/reject',auth, rejectGame);
 
 router.delete("/:id", auth, deleteOneGame);
 

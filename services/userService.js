@@ -78,7 +78,7 @@ const refresh = async (refreshToken) => {
 
   const tokens = tokenService.createTokens({ ...recruiterDTO });
   return {
-    accessToken: tokens.accessToken,
+    ...tokens
   };
 };
 

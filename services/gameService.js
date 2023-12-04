@@ -81,13 +81,33 @@ const likeGame = async (id) => {
 
 const getCreatorGames = async (user_id) => {
   try {
-    console.log(user_id)
     const result = await Game.find({ creator: user_id });
     return result || null;
   } catch (error) {
     console.log("GET_CREATOR_GAMES GAME SERVICE", error.message);
   }
 };
+
+const gameApproved = async (gameId) =>{
+  try {
+    const approved = await Game.findByIdAndUpdate(gameId,
+      {status:"approved"});
+    return approved || null;
+  } catch (error) {
+    
+  }
+}
+
+const gameReject= async (gameId) =>{
+  try {
+    const approved = await Game.findByIdAndUpdate(gameId,
+      {status:"rejected"});
+    return approved || null;
+  } catch (error) {
+    
+  }
+}
+
 
 module.exports = {
   create,
@@ -97,5 +117,7 @@ module.exports = {
   update,
   deleteGame,
   likeGame,
-  getAllGames
+  getAllGames,
+  gameApproved,
+  gameReject
 };

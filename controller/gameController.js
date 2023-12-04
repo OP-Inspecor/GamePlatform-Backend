@@ -7,7 +7,9 @@ const {
   update,
   deleteGame,
   getAllGames,
-  getCreatorGames
+  getCreatorGames,
+  gameApproved,
+  gameReject
 } = require("../services/gameService");
 
 const createGame = async (req, res, next) => {
@@ -90,6 +92,34 @@ const getMyGames = async (req, res, next) => {
   }
 }
 
+const approveGame = async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role === "USER"){
+      return res.status(403).json({message: "POPA"});
+    }
+    const {id} = req.params;
+    const approved = await gameApproved(id);
+    return res.status(200).json(approved);
+  } catch (error) {
+    next(HttpError(500, error.message));
+  }
+}
+
+const rejectGame = async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role === "USER"){
+      return res.status(403).json({message: "POPA"});
+    }
+    const {id} = req.params;
+    const approved = await gameReject(id);
+    return res.status(200).json(approved);
+  } catch (error) {
+    next(HttpError(500, error.message));
+  }
+}
+
 module.exports = {
   createGame,
   deleteOneGame,
@@ -97,5 +127,7 @@ module.exports = {
   getGameById,
   getAllAdmin,
   getGames,
-  getMyGames
+  getMyGames,
+  approveGame,
+  rejectGame
 };

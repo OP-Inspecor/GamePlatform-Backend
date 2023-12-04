@@ -23,6 +23,9 @@ const userSchema = new Schema(
       default:"USER",
       required: true,
     },
+    loaderurl:{
+      type:String,
+    },
     // created_games: {
     //   type: [{ type: Schema.Types.ObjectId, ref: "Game" }],
     // },
