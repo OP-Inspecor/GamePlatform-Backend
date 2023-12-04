@@ -5,7 +5,6 @@ const TokenService = require("../services/tokenService");
 module.exports = function(req,res,next){
   try {
       const headerAuth = req.headers.authorization;
-      console.log(headerAuth)
       if(!headerAuth){
           return next(HttpError(403,"Unath"));   
       }

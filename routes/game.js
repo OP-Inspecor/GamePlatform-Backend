@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const { createGame,getAll, updateGame, deleteOneGame, getGameById } = require('../controller/gameController');
+const { createGame,getAllAdmin,getGames, updateGame, deleteOneGame, getGameById } = require('../controller/gameController');
 
 
-router.get('/', getAll);
+router.get('/admin',auth, getAllAdmin);
+
+router.get('/', getGames);
 
 router.get('/:id',getGameById)
 

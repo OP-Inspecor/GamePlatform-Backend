@@ -29,10 +29,16 @@ const gameSchema = new Schema({
         type:Number,
         default:0,
     },
-    // history_players:{
-    //     type:[{ type: Schema.Types.ObjectId,
-    //         ref: 'User' }],
-    // }
+    status:{
+        type:String,
+        enum:['pending', 'rejected', 'approved'],
+        default:'pending',
+        required:true,
+    },
+    filesUrl:{
+        type:String,
+        //required:true,
+    },
 },{ versionKey: false, timestamps: true });
 
 const Game = model("Game", gameSchema);

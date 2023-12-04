@@ -17,7 +17,6 @@ const register = async ({name, email, password}) => {
       name,
       email,
       password: hashPassword,
-      role: "USER",
     });
     const userDTO = new UserDTO(newUser);
     const tokens = tokenService.createTokens({ ...userDTO });

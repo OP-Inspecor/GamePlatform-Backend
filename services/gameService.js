@@ -12,9 +12,18 @@ const create = async (body, user) => {
   }
 };
 
-const getAllGames = async () => {
+const getAllGamesAdmin = async () => {
   try {
     const games = await Game.find();
+    return games || null;
+  } catch (error) {
+    console.log("GET_ALL GAME SERVICE", error.message);
+  }
+};
+
+const getAllGames = async () => {
+  try {
+    const games = await Game.find({status:'approved'});
     return games || null;
   } catch (error) {
     console.log("GET_ALL GAME SERVICE", error.message);
@@ -81,10 +90,11 @@ const getCreatorGames = async (user_id) => {
 
 module.exports = {
   create,
-  getAllGames,
+  getAllGamesAdmin,
   getById,
   getCreatorGames,
   update,
   deleteGame,
   likeGame,
+  getAllGames
 };
