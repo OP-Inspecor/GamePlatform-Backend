@@ -1,5 +1,6 @@
 const userService = require("../services/userService");
 const User = require("../models/User");
+const HttpError = require("../errors/errorHandler");
 
 const register = async (req, res, next) => {
   try {
@@ -69,4 +70,16 @@ const refresh = async (req, res, next) => {
   } catch (error) {}
 };
 
-module.exports = { register, login, logout, uploadAvatar, refresh };
+const getUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    console.log(id);
+    const user = await userService.getMe(id);
+    return res.status(200).json(user);
+  } catch (error) {
+    next(HttpError(500, error.message));
+    console.log("GET_USER CONTROLLER", error.message);
+  }
+};
+
+module.exports = { getUser, register, login, logout, uploadAvatar, refresh };

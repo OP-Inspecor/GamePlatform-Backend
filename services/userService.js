@@ -5,7 +5,7 @@ const uuid = require("uuid");
 const UserDTO = require("../dtos/UserDTO");
 const tokenService = require("./tokenService");
 
-const register = async ({name, email, password}) => {
+const register = async ({ name, email, password }) => {
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -20,7 +20,7 @@ const register = async ({name, email, password}) => {
     });
     const userDTO = new UserDTO(newUser);
     const tokens = tokenService.createTokens({ ...userDTO });
-  
+
     await tokenService.pushToken(userDTO.id, tokens.refreshToken);
     return {
       ...tokens,
@@ -31,7 +31,7 @@ const register = async ({name, email, password}) => {
   }
 };
 
-const login = async ({email, password}) => {
+const login = async ({ email, password }) => {
   const person = await User.findOne({ email });
   if (!person) {
     return null;
@@ -53,36 +53,33 @@ const login = async ({email, password}) => {
 };
 
 const logut = async (refreshToken) => {
-    
   const token = await tokenService.removeToken(refreshToken);
   return token;
 };
 
 const getMe = async (id) => {
   const person = await User.findById(id);
-  return person || null;
-}
+  const user = new UserDTO(person);
+  return user || null;
+};
 
 const refresh = async (refreshToken) => {
-
   if (!refreshToken) {
     return HttpError(403, "Unathorized");
   }
   const tokenData = tokenService.isValidRefreshToken(refreshToken);
   const tokenFromDB = await tokenService.searchToken(refreshToken);
- 
+
   if (!tokenData || !tokenFromDB) {
     return HttpError(403, "Unathorized");
   }
   const person = await User.findById(tokenData.id);
   const recruiterDTO = new UserDTO(person);
-  
+
   const tokens = tokenService.createTokens({ ...recruiterDTO });
   return {
     accessToken: tokens.accessToken,
   };
 };
-
-
 
 module.exports = { register, login, logut, refresh, getMe };

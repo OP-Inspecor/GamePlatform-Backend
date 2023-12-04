@@ -81,6 +81,7 @@ const likeGame = async (id) => {
 
 const getCreatorGames = async (user_id) => {
   try {
+    console.log(user_id)
     const result = await Game.find({ creator: user_id });
     return result || null;
   } catch (error) {
