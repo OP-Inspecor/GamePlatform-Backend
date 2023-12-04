@@ -5,13 +5,14 @@ var cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/user");
 const gameRouter = require("./routes/game");
+
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors({
   credentials:true,
-  origin:'http://localhost:3000',
-  ptionsSuccessStatus: 200
+  origin:'http://localhost:5173',
+  optionsSuccessStatus: 200
 }));
 require("dotenv").config();
 

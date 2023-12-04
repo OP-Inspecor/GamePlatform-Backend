@@ -67,7 +67,7 @@ const refresh = async (req, res, next) => {
       httpOnly: true,
     });
     return res.json(userData);
-  } catch (error) {}
+  } catch (error) { }
 };
 
 const getUser = async (req, res, next) => {
